@@ -1,0 +1,51 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    {% if streamer %}
+        {{ streamer.name }}
+    {% else %}
+        Whoops!
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    <img src="{{ streamer.image }}" alt="Image not available">
+    <div>{{ streamer.name }} streams {{ category.name }} and has {{ streamer.views }} views. Rating:{{ streamer.rating }}</div>
+    <hr>
+    <div class="make_comment">
+        {% if user.is_authenticated %}
+            <a id="Comment-link" href="{% url 'stream:add_comment' name=streamer.name category_name_slug=category.slug%}">Add A Review</a>
+        {% else %}
+            <p>You are not registered to make comments</p>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="comment-block">
+        {% if comments %}
+            {% for comment in comments %}
+                <div>{{ comment.user_name }} - {{ comment.rating }} - {{ comment.date }}</div>
+                <div>{{ comment.text }}</div>
+                <div class="sub-comments" id="{{ comment.id }}">
+                    {% if user.is_authenticated %}
+                        <a id="sub-comment-link" href="{% url 'stream:add_sub_comment' id=comment.id name=streamer.name category_name_slug=category.slug%}">Answer</a>
+                    {% else %}
+                        <p>You are not registered to make comments</p>
+                    {% endif %}
+                    {% for sub_comment_set in sub_comments %}
+                        {% if sub_comment_set.0.father_comment == comment %}
+                            {% for sub_comment in sub_comment_set %}
+                                <ul>
+                                    <p>{{ sub_comment.user_name }} - {{ sub_comment.date }}</p>
+                                    <p>{{ sub_comment.text }}</p>
+                                </ul>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div>No comments yet!</div>
+        {% endif %}
+    </div>
+{% endblock %}

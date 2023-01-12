@@ -1,0 +1,9 @@
+bcrypt==3.1.6
+cffi==1.11.5
+coverage==4.5.2
+Django==1.11.18
+django-registration-redux==1.4
+Pillow==5.4.1
+pycparser==2.19
+pytz==2018.9
+six==1.12.0

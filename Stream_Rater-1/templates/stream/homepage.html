@@ -1,0 +1,30 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+{% load stream_template_tags %}
+
+{% block title_block %}
+    Homepage
+{% endblock %}
+
+{% block body_block %}
+    <div>Homepage, hooray!</div>
+    <div class="temporaryList">
+    {% if categories %}
+        {% for c in categories %}
+            {% if c == act_cat %}
+                <li>
+                    <strong>
+                        <a href="{% url 'stream:show_category' category_name_slug=c.slug %}">{{ c.name }}</a>
+                    </strong>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'stream:show_category' category_name_slug=c.slug %}">{{ c.name }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <li><strong>There are no categories present.</strong></li>
+    {% endif %}
+    </div>
+{% endblock %}

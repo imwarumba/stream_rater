@@ -1,0 +1,26 @@
+<ul>
+    {% if cats %}
+        {% for c in cats %}
+            {% if c == act_cat %}
+                <li>
+                    <strong>
+                        <a href="{% url 'stream:show_category' category_name_slug=c.slug %}">{{ c.name }}</a>
+                    </strong>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'stream:show_category' category_name_slug=c.slug %}">{{ c.name }}</a>
+                </li>
+            {% endif %}
+                {% for s in streamers %}
+                    {% if c == s.category %}
+                        <ul>
+                            <a href="{% url 'stream:show_streamer' name=s.name category_name_slug=c.slug %}">{{ s.name }}</a>
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+        {% endfor %}
+    {% else %}
+        <li><strong>There are no categories present.</strong></li>
+    {% endif %}
+</ul>

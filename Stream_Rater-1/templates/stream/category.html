@@ -1,0 +1,21 @@
+{% extends 'stream/base.html' %}
+
+{% block title_block %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        Whoops!
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    <div>{{ category.name }}</div>
+    <img src={{ category.image }}>
+    {% for s in streamers %}
+        {% if category == s.category %}
+            <li>
+                <a href="{% url 'stream:show_streamer' name=s.name category_name_slug=category.slug %}">{{ s.name }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

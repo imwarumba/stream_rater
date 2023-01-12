@@ -1,0 +1,37 @@
+{% extends 'stream/base.html' %}
+{% block body_block %}
+    <link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href=
+                  "http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css"
+          rel="stylesheet">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-3 text-center">
+            <h1 class="display-4">Login</h1>
+            <br/>
+            <form class="form-signin" role="form" method="post" action=".">
+                {% csrf_token %}
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <br/>
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input type="text" name="username" id="id_username" class="form-control"
+                       placeholder="Username" required autofocus>
+                <br/>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="password" id="id_password" class="form-control"
+                       placeholder="Password" required>
+                <br/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"value="Submit">
+                Sign in</button>
+            </form>
+        </div>
+
+        <div class="col-md-4"></div>
+
+    </div>
+
+
+
+{% endblock %}

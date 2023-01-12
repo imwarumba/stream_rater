@@ -1,0 +1,72 @@
+{% extends 'stream/base.html' %}
+{% load staticfiles %}
+{% block title %}{{ selecteduser.username }}Profile{% endblock %}
+{% block body_block %}
+
+    <style>
+        .profile-img {
+            object-fit: contain;
+            border-radius: 10px;
+            width: 100%;
+            height: auto;
+            min-height: 150px;
+            min-width: 100px;
+            max-height: 200px;
+            max-width: 200px;
+            background-color: #3d3d3d;
+        }
+        .profile-row {
+            background-color: rgba(0,0,0,0.05);
+            padding: 10px;
+            margin: 20px;
+            border-radius: 20px;
+        }
+        .left {
+            width: 15%;
+        }
+        .right {
+            width: 85%;
+            padding-left: 30px;
+        }
+    </style>
+
+    <h1>{{ selecteduser.username }}'s Profile</h1>
+    <div class="row profile-row">
+        <div class="left">
+            {% if userprofile.picture %}
+                <img src="{{ MEDIA_URL }}{{ userprofile.picture }}"
+                     alt="{{ selecteduser.username }}" class="profile-img"/>
+            {% else %}
+                <img src="http://lorempixel.com/400/200" class="profile-img"/>
+            {% endif %}
+        </div>
+        <div class="right">
+            {% if selecteduser.username == user.username %}
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="btn btn-primary" type="submit" value="Update"/>
+                </form>
+            {% else %}
+                <p>
+                    <strong>Website:</strong>
+                    <a href="{{ userprofile.website }}">{{ userprofile.website }}</a>
+                    <br/>
+                    <strong>Joined:</strong> {{ userprofile.user.date_joined }}
+                    <br/>
+                    <strong>Last logged in:</strong> {{ userprofile.user.last_login }}
+                    <br/>
+                    <strong>Is staff:</strong> {{ userprofile.user.is_staff }}
+                    <br/>
+                </p>
+            {% endif %}
+        </div>
+    <div id="edit_profile"></div>
+        </div>
+
+    </div>
+
+    <br/>
+
+
+{% endblock %}

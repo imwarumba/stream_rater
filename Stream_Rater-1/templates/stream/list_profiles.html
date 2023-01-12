@@ -1,0 +1,44 @@
+{% extends 'stream/base.html' %}
+{% load staticfiles %}
+{% block title %}User Profiles{% endblock %}
+{% block body_block %}
+    <style>
+    .profile-img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border: 2px solid rgba(0,0,0,0.3);
+        border-radius: 100%;
+        background-color: #484848;
+    }
+    </style>
+    <h1>User Profiles</h1>
+    <div class="panel">
+        {% if userprofile_list %}
+            <div class="panel-heading">
+                <!-- Display search results in an ordered list -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for listuser in userprofile_list %}
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">
+                                    {% if listuser.picture %}
+                                        <img src="{{ MEDIA_URL }}{{ listuser.picture }}" class="profile-img"/>
+                                    {%  else %}
+                                        <img src="http://lorempixel.com/400/200" class="profile-img"/>
+                                    {% endif %}
+                                    <a href="{% url 'profile' listuser.user.username %}">
+                                        {{ listuser.user.username }}
+                                    </a>
+
+                                </h4>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>There are no users for the site.</p>
+        {% endif %}
+    </div>
+{% endblock %}

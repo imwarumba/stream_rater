@@ -1,0 +1,23 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Comment on {{ streamer.name }}
+{% endblock %}
+
+{% block body_block %}
+    <form id="comment_form" method="POST" action="{% url 'stream:add_comment' name=streamer.name category_name_slug=slug %}" enctype="multipart/form-data">
+    <p>Give us your opinion:</p>
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+            <p></p>
+        {% endfor %}
+        <input type="submit" name="submit" value="post comment" />
+    </form>
+{% endblock %}

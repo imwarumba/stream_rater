@@ -1,0 +1,12 @@
+{% extends 'stream/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Thanks for contributing!
+{% endblock %}
+
+{% block body_block %}
+    <p>Thanks for contributing!</p>
+    <a href="{% url 'stream:show_streamer' name=streamer.name category_name_slug=category.slug %}">Please click here to return</a>
+{% endblock %}
+
